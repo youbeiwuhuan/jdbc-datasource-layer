@@ -27,6 +27,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLXML;
+import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -47,6 +48,19 @@ import lombok.Getter;
  * @author zhangliang
  */
 public abstract class AbstractDelegatingPreparedStatementAdapter extends AbstractUnsupportedOperationPreparedStatement {
+	
+	protected Statement stmt;
+	protected AbstractDelegatingConnectionAdapter conn;
+
+	protected AbstractDelegatingPreparedStatementAdapter(Statement stmt,AbstractDelegatingConnectionAdapter conn) {
+		this.stmt = stmt;
+		this.conn = conn;
+	}
+	
+	
+	
+	
+	
     
     private final List<SetParameterMethodInvocation> setParameterMethodInvocations = new LinkedList<>();
     

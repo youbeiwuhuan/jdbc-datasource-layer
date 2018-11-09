@@ -1,16 +1,24 @@
 package com.ybwh.dsl.jdbc.core.statement;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Objects;
 
+import com.ybwh.dsl.api.interceptor.StatementInterceptor;
+import com.ybwh.dsl.jdbc.adapter.AbstractDelegatingConnectionAdapter;
 import com.ybwh.dsl.jdbc.adapter.AbstractDelegatingStatementAdapter;
 
-public class DefaultDelegatingStatement extends AbstractDelegatingStatementAdapter{
+public class DefaultDelegatingStatement extends AbstractDelegatingStatementAdapter {
+	private List<StatementInterceptor> statementInterceptors;
 
-	protected DefaultDelegatingStatement(Statement stmt) {
-		super(stmt);
+	public DefaultDelegatingStatement(Statement stmt, AbstractDelegatingConnectionAdapter conn,
+			List<StatementInterceptor> statementInterceptors) {
+		super(stmt, conn);
+		Objects.requireNonNull(statementInterceptors);
+		this.statementInterceptors = statementInterceptors;
+		
 	}
 
 	@Override
@@ -29,32 +37,6 @@ public class DefaultDelegatingStatement extends AbstractDelegatingStatementAdapt
 	public boolean execute(String sql) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public ResultSet getResultSet() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getResultSetConcurrency() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getResultSetType() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
-
-	@Override
-	public ResultSet getGeneratedKeys() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -91,12 +73,6 @@ public class DefaultDelegatingStatement extends AbstractDelegatingStatementAdapt
 	public boolean execute(String sql, String[] columnNames) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public int getResultSetHoldability() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

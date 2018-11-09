@@ -18,6 +18,7 @@
 package com.ybwh.dsl.jdbc.adapter;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
@@ -26,14 +27,41 @@ import com.ybwh.dsl.jdbc.unsupported.AbstractUnsupportedOperationStatement;
 
 public abstract class AbstractDelegatingStatementAdapter extends AbstractUnsupportedOperationStatement {
 	protected Statement stmt;
+	protected AbstractDelegatingConnectionAdapter conn;
 
-	protected AbstractDelegatingStatementAdapter(Statement stmt) {
+	protected AbstractDelegatingStatementAdapter(Statement stmt,AbstractDelegatingConnectionAdapter conn) {
 		this.stmt = stmt;
+		this.conn = conn;
 	}
-	
+
 	@Override
 	public Connection getConnection() throws SQLException {
-		return null;
+		return conn;
+	}
+
+	@Override
+	public ResultSet getResultSet() throws SQLException {
+		return stmt.getResultSet();
+	}
+
+	@Override
+	public int getResultSetConcurrency() throws SQLException {
+		return stmt.getResultSetConcurrency();
+	}
+
+	@Override
+	public int getResultSetType() throws SQLException {
+		return stmt.getResultSetType();
+	}
+
+	@Override
+	public ResultSet getGeneratedKeys() throws SQLException {
+		return stmt.getGeneratedKeys();
+	}
+
+	@Override
+	public int getResultSetHoldability() throws SQLException {
+		return stmt.getResultSetHoldability();
 	}
 
 	@Override
