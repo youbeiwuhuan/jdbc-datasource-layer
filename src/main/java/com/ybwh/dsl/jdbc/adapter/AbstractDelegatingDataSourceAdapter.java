@@ -18,10 +18,12 @@
 package com.ybwh.dsl.jdbc.adapter;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.Objects;
 import java.util.logging.Logger;
+
+import javax.sql.DataSource;
 
 import com.ybwh.dsl.jdbc.unsupported.AbstractUnsupportedOperationDataSource;
 
@@ -30,9 +32,15 @@ import com.ybwh.dsl.jdbc.unsupported.AbstractUnsupportedOperationDataSource;
  * 
  * @author zhangliang
  */
-public abstract class AbstractDataSourceAdapter extends AbstractUnsupportedOperationDataSource {
+public abstract class AbstractDelegatingDataSourceAdapter extends AbstractUnsupportedOperationDataSource {
 
 	private PrintWriter logWriter = new PrintWriter(System.out);
+	protected DataSource dataSource;
+
+	protected AbstractDelegatingDataSourceAdapter(DataSource dataSource) {
+		Objects.requireNonNull(dataSource);
+		this.dataSource = dataSource;
+	}
 
 	@Override
 	public final PrintWriter getLogWriter() throws SQLException {
@@ -49,8 +57,4 @@ public abstract class AbstractDataSourceAdapter extends AbstractUnsupportedOpera
 		return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	}
 
-	@Override
-	public final Connection getConnection(final String username, final String password) throws SQLException {
-		return getConnection();
-	}
 }
