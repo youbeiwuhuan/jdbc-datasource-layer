@@ -46,7 +46,7 @@ import lombok.Getter;
  *
  * @author zhangliang
  */
-public abstract class AbstractShardingPreparedStatementAdapter extends AbstractUnsupportedOperationPreparedStatement {
+public abstract class AbstractDelegatingPreparedStatementAdapter extends AbstractUnsupportedOperationPreparedStatement {
     
     private final List<SetParameterMethodInvocation> setParameterMethodInvocations = new LinkedList<>();
     

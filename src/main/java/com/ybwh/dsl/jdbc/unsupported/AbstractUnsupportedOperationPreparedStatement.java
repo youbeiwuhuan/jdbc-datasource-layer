@@ -30,14 +30,14 @@ import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 
-import com.ybwh.dsl.jdbc.adapter.AbstractStatementAdapter;
+import com.ybwh.dsl.jdbc.adapter.AbstractDelegatingStatementAdapter;
 
 /**
  * Unsupported {@code PreparedStatement} methods.
  * 
  * @author zhangliang
  */
-public abstract class AbstractUnsupportedOperationPreparedStatement extends AbstractStatementAdapter implements PreparedStatement {
+public abstract class AbstractUnsupportedOperationPreparedStatement extends AbstractDelegatingStatementAdapter implements PreparedStatement {
     
     public AbstractUnsupportedOperationPreparedStatement() {
         super(PreparedStatement.class);
